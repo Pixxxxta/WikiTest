@@ -30,7 +30,6 @@ import org.wikipedia.R;
 import org.wikipedia.main.MainActivity;
 
 @RunWith(AndroidJUnit4.class)
-@LargeTest
 public class Login {
     private String stringToBetyped;
 
@@ -59,13 +58,13 @@ public class Login {
 
         onView(allOf(withHint(R.string.login_password_hint))).perform(click(), typeText("09eietaZ"));
 
-        onView(withId(R.id.login_button)).perform(click());
+        onView(allOf(withId(R.id.login_button), isDisplayed())).perform(click());
 
         Thread.sleep(5000);
 
         onView(allOf(withText("НЕТ, СПАСИБО"), isDisplayed())).perform(click());
 
-        onView(allOf(withId(R.id.menu_notifications), isDisplayed()));
+        onView(allOf(withId(R.id.menu_notifications))).check(matches(isDisplayed()));
 
 
     }
@@ -91,7 +90,7 @@ public class Login {
     public void switchActivity() throws InterruptedException {
         onView(allOf(withText("ПРОПУСТИТЬ"), isDisplayed())).perform(click());
         onView(allOf(withText("Сохранено"), isDisplayed())).perform(click());
-        onView(allOf(withId(R.id.menu_search_lists), isDisplayed()));
+        onView(allOf(withId(R.id.menu_search_lists))).check(matches(isDisplayed()));
     }
 
     @Test
@@ -105,7 +104,7 @@ public class Login {
         onView(withId(R.id.button_theme_sepia)).perform(click());
         onView(withId(R.id.touch_outside)).perform(click());
         onView(allOf(withId(R.id.text_size_percent), isDisplayed())).perform(pressBack());
-        onView(allOf(withText("Сепия"), isDisplayed()));
+        onView(withText("Сепия")).check(matches(isDisplayed()));
         Thread.sleep(5000);
     }
 }
